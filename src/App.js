@@ -4,12 +4,20 @@ import Tasks from "./components/Tasks";
 import task from "./components/Task";
 function App() {
 
-    const [tasks,setTasks] = useState(    [{
+    const [tasks,setTasks] = useState(    [
+        {
         id: 1,
         text: 'some text',
         day: 'Aug 29th at 2:30pm',
         reminder: true,
-    }])
+        },
+        {
+            id: 2,
+            text: 'some text2',
+            day: 'Aug 30th at 2:30pm',
+            reminder: true,
+        },
+    ])
 
     //delete task
     const deleteTask = (id) => {

@@ -1,7 +1,7 @@
 import React , {useState} from 'react';
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import task from "./components/Task";
+import AddTask from "./actions/AddTask";
 function App() {
 
     const [tasks,setTasks] = useState(    [{
@@ -26,6 +26,7 @@ function App() {
   return (
     <div className="container">
       <Header />
+        <AddTask/>
         {tasks.length > 0 ? <Tasks
             tasks={tasks}
             onDelete={deleteTask}

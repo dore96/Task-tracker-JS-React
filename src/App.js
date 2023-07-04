@@ -1,11 +1,12 @@
 import React , {useState} from 'react';
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
-import task from "./components/Task";
+import AddTask from "./components/AddTask";
 function App() {
 
-    const [tasks,setTasks] = useState(    [
-        {
+    const [showAddTask, setShowAddTask] = useState(false)
+    const [tasks,setTasks] = useState(    [{
+
         id: 1,
         text: 'some text',
         day: 'Aug 29th at 2:30pm',
@@ -19,6 +20,12 @@ function App() {
         },
     ])
 
+    //add task
+    const addTask = (task) => {
+        const id = Math.floor(Math.random()*1000 + 1)
+        const newTask = {id, ...task}
+        setTasks([...tasks, newTask])
+    }
     //delete task
     const deleteTask = (id) => {
         setTasks(tasks.filter((task) => task.id !== id))
@@ -33,7 +40,11 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
+        {/*sets the value of showAddTask to opposite value and therefore changes the page*/}
+      <Header onAdd = {() => setShowAddTask(!showAddTask)}
+              showAdd = {showAddTask}/>
+        {/*shortcat to if true add task*/}
+        {showAddTask && <AddTask onAdd={addTask}/>}
         {tasks.length > 0 ? <Tasks
             tasks={tasks}
             onDelete={deleteTask}

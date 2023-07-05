@@ -1,7 +1,10 @@
 import React , {useState, useEffect} from 'react';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About";
 function App() {
 
     const [showAddTask, setShowAddTask] = useState(false)
@@ -67,19 +70,32 @@ function App() {
                 {...task, reminder: data.reminder} : task))
     }
 
-  return (
-    <div className="container">
-        {/*sets the value of showAddTask to opposite value and therefore changes the page*/}
-      <Header onAdd = {() => setShowAddTask(!showAddTask)}
-              showAdd = {showAddTask}/>
-        {/*shortcut to if true add task*/}
-        {showAddTask && <AddTask onAdd={addTask}/>}
-        {tasks.length > 0 ? <Tasks
-            tasks={tasks}
-            onDelete={deleteTask}
-            onToggle = {toggleReminder}/>
-            : 'No Tasks to show'}
-    </div>
-  );
+    return (
+        <Router>
+            <div className='container'>
+                <Header
+                    onAdd={() => setShowAddTask(!showAddTask)}
+                    showAdd={showAddTask}
+                />
+                <Routes>
+                    <Route
+                        path='/'
+                        element={
+                            <>
+                                {showAddTask && <AddTask onAdd={addTask} />}
+                                {tasks.length > 0 ? (
+                                    <Tasks
+                                        tasks={tasks}
+                                        onDelete={deleteTask}
+                                        onToggle={toggleReminder}/>) : ('No Tasks To Show')}
+                            </>
+                        }
+                    />
+                    <Route path='/about' element={<About />} />
+                </Routes>
+                <Footer />
+            </div>
+        </Router>
+    )
 }
 export default App;

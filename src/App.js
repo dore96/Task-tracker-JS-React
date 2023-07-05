@@ -1,25 +1,20 @@
-import React , {useState} from 'react';
+import React , {useState, useEffect} from 'react';
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 function App() {
 
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks,setTasks] = useState(    [{
+    const [tasks,setTasks] = useState(    [])
 
-        id: 1,
-        text: 'some text',
-        day: 'Aug 29th at 2:30pm',
-        reminder: true,
-        },
-        {
-            id: 2,
-            text: 'some text2',
-            day: 'Aug 30th at 2:30pm',
-            reminder: true,
-        },
-    ])
-
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const res = await fetch('http://localhost:5000/tasks')
+            const data = await res.json()
+            console.log(data)
+        }
+        fetchTasks()
+    },[])
     //add task
     const addTask = (task) => {
         const id = Math.floor(Math.random()*1000 + 1)
@@ -43,7 +38,7 @@ function App() {
         {/*sets the value of showAddTask to opposite value and therefore changes the page*/}
       <Header onAdd = {() => setShowAddTask(!showAddTask)}
               showAdd = {showAddTask}/>
-        {/*shortcat to if true add task*/}
+        {/*shortcut to if true add task*/}
         {showAddTask && <AddTask onAdd={addTask}/>}
         {tasks.length > 0 ? <Tasks
             tasks={tasks}

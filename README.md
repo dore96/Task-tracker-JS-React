@@ -1,4 +1,4 @@
-# Task Tracker
+# Task Tracker 	:bookmark_tabs:
 
 This is a simple task tracker application built with React. It allows you to add and remove tasks, toggle task reminders, and fetch tasks from a server using JSON Server. This project covers various React concepts and features, including components, props, state management, styling, events, form handling, and routing.
 
